@@ -1,129 +1,19 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Mini Chat</title>
-
-  <style>
-
-    body{
-      font-family: Arial;
-      padding:20px;
-    }
-
-    #chat{
-      border:1px solid gray;
-      height:300px;
-      overflow-y:auto;
-      padding:10px;
-      margin-top:20px;
-    }
-
-    input{
-      padding:10px;
-      width:70%;
-    }
-
-    button{
-      padding:10px;
-    }
-
-  </style>
+    <link rel="stylesheet" href="estilos.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anonimus</title>
+<meta name="google-site-verification" content="okb59f4UAd-632bZUH3P-QSyIW2ZHdAGwkQL8st2EPM" />
 </head>
 <body>
-
-<h1>Mini Chat 😎</h1>
-
-<input type="text" id="mensaje" placeholder="Escribe algo">
-
-<button onclick="enviarMensaje()">
-Enviar
-</button>
+<h1>Chat</h1>
+<input type="text" id="mensaje" placeholder="Escribe tu mensaje...">
+<button id="btnEnviar">Enviar</button>
 
 <div id="chat"></div>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-
-  getFirestore,
-  collection,
-  addDoc,
-  onSnapshot
-
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-
-
-const firebaseConfig = {
-
-  apiKey: "AIzaSyCEaObg2EeaB9YohagqxL8PTNEcCgLhGWo",
-
-  authDomain: "page-chat-375a9.firebaseapp.com",
-
-  projectId: "page-chat-375a9",
-
-  storageBucket: "page-chat-375a9.firebasestorage.app",
-
-  messagingSenderId: "200287332598",
-
-  appId: "1:200287332598:web:680425c8bdd05c8c4224d7",
-
-  measurementId: "G-LEWTV33P6H"
-
-};
-
-
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
-
-
-
-window.enviarMensaje = async function(){
-
-  const input = document.getElementById("mensaje");
-
-  if(input.value.trim() === "") return;
-
-
-  await addDoc(collection(db, "mensajes"), {
-
-    texto: input.value
-
-  });
-
-
-  input.value = "";
-
-};
-
-
-
-onSnapshot(collection(db, "mensajes"), (snapshot)=>{
-
-  const chat = document.getElementById("chat");
-
-  chat.innerHTML = "";
-
-
-  snapshot.forEach((doc)=>{
-
-    const p = document.createElement("p");
-
-    p.textContent = doc.data().texto;
-
-    chat.appendChild(p);
-
-  });
-
-});
-
-</script>
+<script type="module" src="logica.js"></script>
 
 </body>
 </html>
