@@ -27,16 +27,13 @@ const contenedorChat = document.getElementById("chat");
 
 // Función para enviar mensajes
 const enviarMensaje = async () => {
-  if (inputMensaje.value.trim() === "") return;
+  // Envía directamente lo que haya en el input a la colección "mensajes"
+  await addDoc(collection(db, "mensajes"), {
+    texto: inputMensaje.value
+  });
 
-  try {
-    await addDoc(collection(db, "mensajes"), {
-      texto: inputMensaje.value
-    });
-    inputMensaje.value = "";
-  } catch (error) {
-    console.error("Error al enviar:", error);
-  }
+  // Limpia el campo
+  inputMensaje.value = "";
 };
 
 // Evento del botón
